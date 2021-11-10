@@ -2260,6 +2260,13 @@
   dependencies:
     tslib "^2.3.1"
 
+"@vue/reactivity@3.2.21":
+  version "3.2.21"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.21.tgz#073ad144192ed78a07e151e95a3baa515e4099a2"
+  integrity sha512-7C57zFm/5E3SSTUhVuYj1InDwuJ+GIVQ/z+H43C9sST85gIThGXVhksl1yWTAadf8Yz4T5lSbqi5Ds8U/ueWcw==
+  dependencies:
+    "@vue/shared" "3.2.21"
+
 "@vue/ref-transform@^3.2.11":
   version "3.2.21"
   resolved "https://registry.yarnpkg.com/@vue/ref-transform/-/ref-transform-3.2.21.tgz#b0c554c9f640c3f005f77e676066aa0faba90984"
@@ -2270,6 +2277,23 @@
     "@vue/shared" "3.2.21"
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
+
+"@vue/runtime-core@3.2.21":
+  version "3.2.21"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.21.tgz#e12dac8c3893b7aebfc37e32066718d8aa686ac5"
+  integrity sha512-7oOxKaU0D2IunOAMOOHZgJVrHg63xwng8BZx3fbgmakqEIMwHhQcp+5GV1sOg/sWW7R4UhaRDIUCukO2GRVK2Q==
+  dependencies:
+    "@vue/reactivity" "3.2.21"
+    "@vue/shared" "3.2.21"
+
+"@vue/runtime-dom@^3.2.21":
+  version "3.2.21"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.21.tgz#33dd15bc85281e773177a30dc6931c294bd77aa1"
+  integrity sha512-apBdriD6QsI4ywbllY8kjr9/0scGuStDuvLbJULPQkFPtHzntd51bP5PQTQVAEIc9kwnTozmj6x6ZdX/cwo7xA==
+  dependencies:
+    "@vue/runtime-core" "3.2.21"
+    "@vue/shared" "3.2.21"
+    csstype "^2.6.8"
 
 "@vue/shared@3.2.21", "@vue/shared@^3.2.11":
   version "3.2.21"
@@ -4081,6 +4105,11 @@ cssstyle@^2.3.0:
   integrity sha512-AZL67abkUzIuvcHqk7c09cezpGNcxUxU4Ioi/05xHk4DQeTkWmGYftIE6ctU6AEt+Gn4n1lDStOtj7FKycP71A==
   dependencies:
     cssom "~0.3.6"
+
+csstype@^2.6.8:
+  version "2.6.18"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.18.tgz#980a8b53085f34af313410af064f2bd241784218"
+  integrity sha512-RSU6Hyeg14am3Ah4VZEmeX8H7kLwEEirXe6aU2IPfKNvhXwTflK5HQRDNI0ypQXoqmm+QPyG2IaPuQE5zMwSIQ==
 
 cuint@^0.2.2:
   version "0.2.2"
