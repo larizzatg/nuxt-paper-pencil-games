@@ -1,5 +1,5 @@
 {
-  "name": "testing-nuxt-apps",
+  "name": "vue-games",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -26,8 +26,10 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/tailwindcss": "^4.2.1",
     "@vue/runtime-dom": "^3.2.21",
     "@vue/test-utils": "^1.2.1",
+    "autoprefixer": "^10.4.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^27.0.5",
     "eslint": "^7.29.0",
@@ -37,7 +39,9 @@
     "husky": "^6.0.0",
     "jest": "^27.0.5",
     "lint-staged": "^10.5.4",
+    "postcss": "^8.3.11",
     "prettier": "^2.3.2",
+    "tailwindcss": "^2.2.19",
     "ts-jest": "^27.0.3",
     "vue-jest": "^3.0.4"
   }
