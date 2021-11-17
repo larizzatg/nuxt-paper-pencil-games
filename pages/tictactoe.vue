@@ -10,6 +10,9 @@
         {{ col }}
       </div>
     </div>
+    <pre>
+      {{ boards }}
+    </pre>
   </div>
 </template>
 
@@ -19,8 +22,8 @@ import { useTicTacToe } from '~/composables/useTicTacToe'
 
 export default defineComponent({
   setup() {
-    const { currentBoard, makeMove } = useTicTacToe()
-    return { currentBoard, makeMove }
+    const { currentBoard, makeMove, boards } = useTicTacToe()
+    return { currentBoard, makeMove, boards }
   },
 })
 </script>

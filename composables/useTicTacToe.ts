@@ -22,7 +22,9 @@ export function useTicTacToe() {
   const currentPlayer = ref<Player>(Player.o)
 
   function makeMove({ col, row }: Move) {
-    const newState: Board = [...boards.value[boards.value.length - 1]]
+    const newState: Board = JSON.parse(
+      JSON.stringify([...boards.value[boards.value.length - 1]])
+    )
 
     if (newState[row][col] !== '-') {
       return
