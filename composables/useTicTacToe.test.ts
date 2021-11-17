@@ -25,12 +25,14 @@ describe('useTictacToe', () => {
       ['-', Player.x, '-'],
       ['-', '-', '-'],
     ]
-    const { currentBoard, makeMove } = useTicTacToe()
+    const { currentBoard, makeMove, boards, currentPlayer } = useTicTacToe()
     makeMove({ col: 0, row: 0 })
     makeMove({ col: 1, row: 1 })
     makeMove({ col: 1, row: 1 })
 
     expect(currentBoard.value).toEqual(expected)
+    expect(boards.value).toHaveLength(3)
+    expect(currentPlayer.value).toBe(Player.o)
   })
   test('can undo a move', () => {
     const { currentBoard, undo, makeMove } = useTicTacToe()

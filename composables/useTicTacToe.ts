@@ -45,6 +45,7 @@ export function useTicTacToe(initialState?: Board[]) {
     redo,
     makeMove,
     boards: readonly(boards),
+    currentPlayer: readonly(currentPlayer),
     currentBoard: computed(() => boards.value[currentMove.value]),
   }
 }
