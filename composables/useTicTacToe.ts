@@ -39,6 +39,8 @@ export function useTicTacToe() {
 
   const boards = ref<Board[]>([initialBoard])
   return {
+    undo: () => (currentMove.value -= 1),
+    redo: () => (currentMove.value += 1),
     makeMove,
     boards: readonly(boards),
     currentBoard: computed(() => boards.value[currentMove.value]),
