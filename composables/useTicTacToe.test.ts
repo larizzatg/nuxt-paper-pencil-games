@@ -1,7 +1,24 @@
 import { useTicTacToe } from './useTicTacToe'
-import { Player } from '~/types/tictactoe'
+import { Board, Player } from '~/types/tictactoe'
 
-describe('tictactoe', () => {
+describe('useTictacToe', () => {
+  test('has an empty board initially', () => {
+    const { currentBoard } = useTicTacToe()
+    expect(currentBoard.value).toEqual([
+      ['-', '-', '-'],
+      ['-', '-', '-'],
+      ['-', '-', '-'],
+    ])
+  })
+  test('supports sending initial state', () => {
+    const initialState: Board = [
+      [Player.o, '-', '-'],
+      ['-', '-', '-'],
+      ['-', '-', '-'],
+    ]
+    const { currentBoard } = useTicTacToe([initialState])
+    expect(currentBoard.value).toEqual(initialState)
+  })
   test('make move', () => {
     const expected = [
       [Player.o, '-', '-'],
@@ -14,14 +31,6 @@ describe('tictactoe', () => {
     makeMove({ col: 1, row: 1 })
 
     expect(currentBoard.value).toEqual(expected)
-  })
-  test('has an empty board initially', () => {
-    const { currentBoard } = useTicTacToe()
-    expect(currentBoard.value).toEqual([
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
   })
   test('can undo a move', () => {
     const { currentBoard, undo, makeMove } = useTicTacToe()

@@ -1,12 +1,13 @@
 import { ref, computed, readonly } from '@nuxtjs/composition-api'
 import { Board, Move, Player } from '~/types/tictactoe'
 
-export function useTicTacToe() {
+export function useTicTacToe(initialState?: Board[]) {
   const initialBoard: Board = [
     ['-', '-', '-'],
     ['-', '-', '-'],
     ['-', '-', '-'],
   ]
+  const boards = ref<Board[]>(initialState || [initialBoard])
   const currentPlayer = ref<Player>(Player.o)
   const currentMove = ref(0)
 
@@ -38,7 +39,7 @@ export function useTicTacToe() {
     }
     currentMove.value += 1
   }
-  const boards = ref<Board[]>([initialBoard])
+
   return {
     undo,
     redo,
