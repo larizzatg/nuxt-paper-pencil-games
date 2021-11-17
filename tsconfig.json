@@ -15,7 +15,12 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@types/node", "unplugin-vue2-script-setup/types"],
+    "types": [
+      "@nuxt/types",
+      "@types/node",
+      "unplugin-vue2-script-setup/types",
+      "@types/jest"
+    ],
     "noUnusedLocals": true
   },
   "exclude": ["node_modules", ".nuxt", "dist"],
