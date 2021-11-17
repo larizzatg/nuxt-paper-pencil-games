@@ -10,6 +10,8 @@
         {{ col }}
       </div>
     </div>
+    <button @click="undo">Undo</button>
+    <button @click="redo">Redo</button>
     <pre>
       {{ boards }}
     </pre>
@@ -22,8 +24,8 @@ import { useTicTacToe } from '~/composables/useTicTacToe'
 
 export default defineComponent({
   setup() {
-    const { currentBoard, makeMove, boards } = useTicTacToe()
-    return { currentBoard, makeMove, boards }
+    const { currentBoard, makeMove, boards, undo, redo } = useTicTacToe()
+    return { currentBoard, makeMove, boards, undo, redo }
   },
 })
 </script>

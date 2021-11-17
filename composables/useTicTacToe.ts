@@ -1,17 +1,5 @@
 import { ref, computed, readonly } from '@nuxtjs/composition-api'
-
-type EmptyCell = '-'
-export const enum Player {
-  x = 'x',
-  o = 'o',
-}
-
-interface Move {
-  col: number
-  row: number
-}
-
-type Board = (Player | EmptyCell)[][]
+import { Board, Move, Player } from '~/types/tictactoe'
 
 export function useTicTacToe() {
   const initialBoard: Board = [
@@ -37,10 +25,23 @@ export function useTicTacToe() {
     currentMove.value += 1
   }
 
+  const undo = () => {
+    if (currentMove.value === 0) {
+      return
+    }
+    currentMove.value -= 1
+  }
+
+  const redo = () => {
+    if (!boards.value[currentMove.value + 1]) {
+      return
+    }
+    currentMove.value += 1
+  }
   const boards = ref<Board[]>([initialBoard])
   return {
-    undo: () => (currentMove.value -= 1),
-    redo: () => (currentMove.value += 1),
+    undo,
+    redo,
     makeMove,
     boards: readonly(boards),
     currentBoard: computed(() => boards.value[currentMove.value]),
