@@ -26,22 +26,24 @@ export function useTicTacToe(initialState?: Board[]) {
     currentMove.value += 1
   }
 
+  const canUndo = computed(() => currentMove.value > 0)
   const undo = () => {
-    if (currentMove.value === 0) {
-      return
+    if (canUndo.value) {
+      currentMove.value -= 1
     }
-    currentMove.value -= 1
   }
 
+  const canRedo = computed(() => !!boards.value[currentMove.value + 1])
   const redo = () => {
-    if (!boards.value[currentMove.value + 1]) {
-      return
+    if (canRedo.value) {
+      currentMove.value += 1
     }
-    currentMove.value += 1
   }
 
   return {
+    canUndo,
     undo,
+    canRedo,
     redo,
     makeMove,
     boards: readonly(boards),

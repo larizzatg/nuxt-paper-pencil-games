@@ -20,13 +20,15 @@
     </div>
     <div class="mt-4">
       <button
-        class="inline-flex justify-center px-4 py-2 mx-1 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+        class="inline-flex justify-center px-4 py-2 mx-1 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 disabled:opacity-40 disabled:pointer-events-none"
+        :disabled="!canUndo"
         @click="undo"
       >
         Undo
       </button>
       <button
-        class="inline-flex justify-center px-4 py-2 mx-1 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+        class="inline-flex justify-center px-4 py-2 mx-1 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 disabled:opacity-40 disabled:pointer-events-none"
+        :disabled="!canRedo"
         @click="redo"
       >
         Redo
@@ -41,8 +43,9 @@ import { useTicTacToe } from '~/composables/useTicTacToe'
 
 export default defineComponent({
   setup() {
-    const { currentBoard, makeMove, boards, undo, redo } = useTicTacToe()
-    return { currentBoard, makeMove, boards, undo, redo }
+    const { currentBoard, makeMove, canUndo, undo, canRedo, redo } =
+      useTicTacToe()
+    return { currentBoard, makeMove, canUndo, undo, canRedo, redo }
   },
 })
 </script>
