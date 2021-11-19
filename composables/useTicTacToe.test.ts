@@ -1,91 +1,79 @@
-import { useTicTacToe } from './useTicTacToe'
+import { mount } from '@vue/test-utils'
+import { makeMove, undo, redo } from './useTicTacToe'
+import Tictactoe from '~/pages/tictactoe.vue'
 import { Board, Player } from '~/types/tictactoe'
 
-describe('useTictacToe', () => {
-  test('has an empty board initially', () => {
-    const { currentBoard } = useTicTacToe()
-    expect(currentBoard.value).toEqual([
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
-  })
-  test('supports sending initial state', () => {
-    const initialState: Board = [
+describe('TicTacToeGame', () => {
+  it('makeMove', () => {
+    const initial: Board = [
       [Player.o, '-', '-'],
       ['-', '-', '-'],
       ['-', '-', '-'],
     ]
-    const { currentBoard } = useTicTacToe([initialState])
-    expect(currentBoard.value).toEqual(initialState)
-  })
-  test('make move', () => {
-    const expected = [
+    const expected: Board = [
       [Player.o, '-', '-'],
       ['-', Player.x, '-'],
       ['-', '-', '-'],
     ]
-    const { currentBoard, makeMove, boards, currentPlayer } = useTicTacToe()
-    makeMove({ col: 0, row: 0 })
-    makeMove({ col: 1, row: 1 })
-    makeMove({ col: 1, row: 1 })
 
-    expect(currentBoard.value).toEqual(expected)
-    expect(boards.value).toHaveLength(3)
-    expect(currentPlayer.value).toBe(Player.o)
+    const { newBoard, newPlayer, moveCount } = makeMove(initial, Player.x, 0, {
+      col: 1,
+      row: 1,
+    })
+    expect(newBoard).toEqual(expected)
+    expect(newPlayer).toEqual(Player.o)
+    expect(moveCount).toEqual(1)
   })
-  test('can undo a move', () => {
-    const { currentBoard, undo, makeMove } = useTicTacToe()
-    undo()
 
-    expect(currentBoard.value).toEqual([
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
-
-    makeMove({ col: 0, row: 0 })
-    makeMove({ col: 1, row: 2 })
-
-    expect(currentBoard.value).toEqual([
-      [Player.o, '-', '-'],
-      ['-', '-', '-'],
-      ['-', Player.x, '-'],
-    ])
-
-    undo()
-    expect(currentBoard.value).toEqual([
-      [Player.o, '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
+  it('cant undo first move', () => {
+    const actual = undo(0)
+    expect(actual).toBe(0)
   })
-  test('can redo a move', () => {
-    const { currentBoard, redo, makeMove, undo } = useTicTacToe()
-    redo()
 
-    expect(currentBoard.value).toEqual([
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
+  it('can undo moves after first', () => {
+    const actual = undo(1)
+    expect(actual).toBe(0)
+  })
 
-    makeMove({ col: 0, row: 0 })
-    makeMove({ col: 1, row: 2 })
+  it('cant redo last move', () => {
+    const actual = redo(0, 2)
+    expect(actual).toBe(1)
+  })
 
-    expect(currentBoard.value).toEqual([
-      [Player.o, '-', '-'],
-      ['-', '-', '-'],
-      ['-', Player.x, '-'],
-    ])
+  it('cant redo moves if isnt last', () => {
+    const actual = redo(0, 2)
+    expect(actual).toBe(1)
+  })
+})
 
-    undo()
-    undo()
-    redo()
-    expect(currentBoard.value).toEqual([
-      [Player.o, '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-    ])
+describe('TicTacToeApp', () => {
+  it('plays a game', async () => {
+    const wrapper = mount(Tictactoe)
+
+    const firstCell = wrapper.find('[data-test=row-0-col-0]')
+    const secondCell = wrapper.find('[data-test=row-0-col-1]')
+    const thirdCell = wrapper.find('[data-test=row-0-col-2]')
+    const undoButton = wrapper.find('[data-test=undo-move]')
+    const redoButton = wrapper.find('[data-test=redo-move]')
+
+    expect(undoButton.attributes().disabled).toBeDefined()
+    expect(redoButton.attributes().disabled).toBeDefined()
+
+    await firstCell.trigger('click')
+    expect(firstCell.text()).toBe(Player.o)
+
+    await secondCell.trigger('click')
+    expect(secondCell.text()).toBe(Player.x)
+
+    await thirdCell.trigger('click')
+    expect(thirdCell.text()).toBe(Player.o)
+
+    await undoButton.trigger('click')
+    expect(thirdCell.text()).toBe('-')
+    expect(redoButton.attributes().disabled).toBeUndefined()
+
+    await redoButton.trigger('click')
+    expect(thirdCell.text()).toBe(Player.o)
+    expect(redoButton.attributes().disabled).toBeDefined()
   })
 })
